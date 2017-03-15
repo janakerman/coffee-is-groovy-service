@@ -7,11 +7,11 @@ import com.janakerman.entity.IEntity
  * Created by jakerman on 15/03/2017.
  */
 trait TRepository<T extends IEntity> implements IRepository<T> {
-    private Map<Integer, T> storage = new HashMap<>()
+    abstract Map<Integer, T> getStorage()
 
-    void save(T t) { this.storage.put(t.getId(), t) }
+    void save(T t) { getStorage().put(t.getId(), t) }
 
-    void saveAll(List<T> tList) { tList.each { this.storage.put(it.getId(), it) } }
+    void saveAll(List<T> tList) { tList.each { getStorage().put(it.getId(), it) } }
 
-    T find(Integer id) { this.storage.get(id) }
+    T find(Integer id) { getStorage().get(id) }
 }

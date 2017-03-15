@@ -1,6 +1,7 @@
 package com.janakerman.repository;
 
 import com.janakerman.entity.Person
+import com.janakerman.entity.Shop
 import org.springframework.stereotype.Repository
 
 import java.util.concurrent.ThreadLocalRandom
@@ -11,6 +12,8 @@ import java.util.concurrent.ThreadLocalRandom
  */
 @Repository
 class PersonRepository implements IRepository<Person>, TRepository<Person> {
+
+    final Map<Integer, Shop> storage = new HashMap<>()
 
     PersonRepository() {
         this.saveAll(generateMocks())

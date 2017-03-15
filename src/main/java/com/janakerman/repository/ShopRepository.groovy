@@ -13,6 +13,8 @@ import java.util.concurrent.ThreadLocalRandom
 @Repository
 class ShopRepository implements IRepository<Shop>, TRepository<Shop> {
 
+    final Map<Integer, Shop> storage = new HashMap<>()
+
     ShopRepository() {
         this.saveAll(generateMocks())
     }
