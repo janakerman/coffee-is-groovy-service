@@ -14,7 +14,8 @@ class GreetingController {
 
     @RequestMapping(value="/greeting", method=RequestMethod.GET)
     Object greeting(@RequestParam(value="name", required=false, defaultValue="World") String name) {
-        [id: 1, greeting: "Hello, ${name}"]
+
+        [id: 1, greeting: "Hello, $name".toString()]
     }
 
 }
