@@ -1,5 +1,6 @@
 package com.janakerman.hello
 
+import com.janakerman.repository.ShopRepository
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
@@ -14,7 +15,6 @@ class GreetingController {
 
     @RequestMapping(value="/greeting", method=RequestMethod.GET)
     Object greeting(@RequestParam(value="name", required=false, defaultValue="World") String name) {
-
         [id: 1, greeting: "Hello, $name".toString()]
     }
 
