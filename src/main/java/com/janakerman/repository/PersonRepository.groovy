@@ -4,21 +4,19 @@ import com.janakerman.entity.Person
 import org.springframework.stereotype.Repository
 
 import java.util.concurrent.ThreadLocalRandom
-import java.util.function.Function
-import java.util.stream.Collectors
 
 /**
  * A repository for Persons.
  * Created by jakerman on 15/03/2017.
  */
 @Repository
-class PersonRepository {
+class PersonRepository implements IRepository<Person>, TRepository<Person> {
 
-    private Map<Integer, Person> people = generateMocks()
+    PersonRepository() {
+        this.saveAll(generateMocks())
+    }
 
-    Person find(Integer id) { people[id] }
-
-    private static Map<Integer, Person> generateMocks() {
+    private static List<Person> generateMocks() {
         def people = []
 
         (1..20).each { i ->
@@ -28,9 +26,7 @@ class PersonRepository {
                     lastName: randomLastName()
             )
         }
-
-        return people.stream()
-                .collect(Collectors.toMap((Function){ p -> p.getId() }, (Function){ p -> p}))
+        return people
     }
 
     private static randomFirstName() {

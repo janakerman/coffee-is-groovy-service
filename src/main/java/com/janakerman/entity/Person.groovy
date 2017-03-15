@@ -6,7 +6,7 @@ import java.time.LocalDate
  * Represents a real person.
  * Created by jakerman on 15/03/2017.
  */
-class Person {
+class Person implements IEntity {
     Integer id
     String firstName
     String lastName

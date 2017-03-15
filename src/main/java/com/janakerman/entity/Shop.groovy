@@ -4,7 +4,7 @@ package com.janakerman.entity
  * Represents a real shop.
  * Created by jakerman on 15/03/2017.
  */
-class Shop {
+class Shop implements IEntity {
     Integer id
     String name
     List<Item> menu

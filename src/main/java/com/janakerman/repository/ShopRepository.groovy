@@ -1,29 +1,23 @@
 package com.janakerman.repository
 
 import com.janakerman.entity.Item
-import com.janakerman.entity.Person
 import com.janakerman.entity.Shop
 import org.springframework.stereotype.Repository
 
 import java.util.concurrent.ThreadLocalRandom
-import java.util.function.Function
-import java.util.stream.Collectors
 
 /**
  * A repository for shops.
  * Created by jakerman on 15/03/2017.
  */
 @Repository
-class ShopRepository {
+class ShopRepository implements IRepository<Shop>, TRepository<Shop> {
 
-
-    private Map<Integer, Shop> shops = generateMocks()
-
-    Shop find(Integer id) {
-        shops[id]
+    ShopRepository() {
+        this.saveAll(generateMocks())
     }
 
-    private static Map<Integer, Shop> generateMocks() {
+    private static generateMocks() {
         def shops = []
 
         (1..20).each { i ->
@@ -33,9 +27,7 @@ class ShopRepository {
                     menu: mockItems()
             )
         }
-
-        return shops.stream()
-                .collect(Collectors.toMap((Function){ p -> p.getId() }, (Function){ p -> p}))
+        return shops
     }
 
     private static mockItems() {
