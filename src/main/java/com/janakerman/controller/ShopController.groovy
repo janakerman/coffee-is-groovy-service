@@ -4,6 +4,7 @@ import com.janakerman.entity.Shop
 import com.janakerman.repository.ShopRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -22,6 +23,6 @@ class ShopController {
     Shop get(@PathVariable Integer id) { repository.findOne id }
 
     @RequestMapping(value = "/shop", method = RequestMethod.POST)
-    Shop post(@PathVariable Shop shop) { repository.save shop }
+    Shop post(@RequestBody Shop shop) { repository.save shop }
 
 }

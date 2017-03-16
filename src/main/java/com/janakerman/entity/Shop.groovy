@@ -1,5 +1,6 @@
 package com.janakerman.entity
 
+import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
@@ -19,7 +20,9 @@ class Shop implements IEntity {
 
     String name
 
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.ALL  // Allows us to create Shops with new Items.
+    )
     List<Item> menu
 
     @Override
