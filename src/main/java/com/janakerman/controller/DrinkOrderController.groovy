@@ -2,7 +2,7 @@ package com.janakerman.controller
 
 import com.janakerman.dto.DrinkOrderDTO
 import com.janakerman.dto.NewOrderDTO
-import com.janakerman.service.OrderService
+import com.janakerman.service.DrinkOrderService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController
  * Created by jakerman on 15/03/2017.
  */
 @RestController
-class OrderController {
+class DrinkOrderController {
 
     @Autowired
-    private OrderService orderService
+    private DrinkOrderService orderService
 
     @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
     DrinkOrderDTO get(@PathVariable Integer id) {

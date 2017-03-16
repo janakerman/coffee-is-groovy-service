@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional
  * Created by jakerman on 16/03/2017.
  */
 @Service
-class OrderServiceImpl implements OrderService {
+class DrinkOrderServiceImpl implements DrinkOrderService {
 
     @Autowired
     ItemRepository itemRepository
