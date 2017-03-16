@@ -4,24 +4,24 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-import javax.persistence.OneToOne
+import javax.persistence.ManyToOne
 
 /**
  * Represents an order.
  * Created by jakerman on 15/03/2017.
  */
 @Entity
-class Order implements IEntity {
+class DrinkOrder implements IEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id
 
-    @OneToOne
+    @ManyToOne
     Person person
 
-    @OneToOne
+    @ManyToOne
     Shop shop
 
-    @OneToOne
+    @ManyToOne
     Item item
 }

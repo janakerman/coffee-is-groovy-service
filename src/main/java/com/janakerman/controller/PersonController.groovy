@@ -23,6 +23,6 @@ class PersonController {
     Person get(@PathVariable Integer id) { repository.findOne id }
 
     @RequestMapping(value = "/person", method = RequestMethod.POST)
-    Person put(@RequestBody Person person) { repository.save person }
+    Person post(@RequestBody Person person) { repository.save person }
 
 }

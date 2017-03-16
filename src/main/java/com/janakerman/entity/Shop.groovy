@@ -21,7 +21,8 @@ class Shop implements IEntity {
     String name
 
     @OneToMany(
-            cascade = CascadeType.ALL  // Allows us to create Shops with new Items.
+            cascade = CascadeType.ALL,  // Allows us to create Shops with new Items.
+            mappedBy = "shop" // Refers to the shop property on the Item object
     )
     List<Item> menu
 
