@@ -4,6 +4,7 @@ import com.janakerman.entity.Person
 import com.janakerman.repository.PersonRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -19,7 +20,9 @@ class PersonController {
     private PersonRepository repository
 
     @RequestMapping(value="/person/{id}", method = RequestMethod.GET)
-    Person find(@PathVariable Integer id) {
-        return repository.find(id)
-    }
+    Person get(@PathVariable Integer id) { repository.findOne id }
+
+    @RequestMapping(value = "/person", method = RequestMethod.POST)
+    Person put(@RequestBody Person person) { repository.save person }
+
 }
