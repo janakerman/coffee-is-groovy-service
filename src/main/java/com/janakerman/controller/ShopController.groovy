@@ -1,8 +1,6 @@
 package com.janakerman.controller
 
-import com.janakerman.dto.ShopDTO
 import com.janakerman.entity.Shop
-import com.janakerman.repository.ShopRepository
 import com.janakerman.service.ShopService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,14 +20,13 @@ class ShopController {
     private ShopService shopService
 
     @RequestMapping(value = "/shop/{id}", method = RequestMethod.GET)
-    ShopDTO get(@PathVariable Integer id) {
-        ShopDTO.fromShop shopService.getShop(id)
+    Shop get(@PathVariable Integer id) {
+        shopService.getShop(id)
     }
 
     @RequestMapping(value = "/shop", method = RequestMethod.POST)
-    ShopDTO post(@RequestBody ShopDTO newShop) {
-        def shop = shopService.createShop newShop.toShop()
-        ShopDTO.fromShop(shop)
+    Shop post(@RequestBody Shop newShop) {
+        shopService.createShop newShop
     }
 
 }

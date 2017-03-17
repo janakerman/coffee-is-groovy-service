@@ -8,7 +8,6 @@ import com.janakerman.entity.DrinkOrder
  */
 interface DrinkOrderService {
 
-    DrinkOrder createOrder(Integer shopId, Integer personId, Integer itemId)
     DrinkOrder get(Integer orderId)
 
 }

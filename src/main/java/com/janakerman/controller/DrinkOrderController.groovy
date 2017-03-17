@@ -1,7 +1,8 @@
 package com.janakerman.controller
 
-import com.janakerman.dto.DrinkOrderDTO
+
 import com.janakerman.dto.NewOrderDTO
+import com.janakerman.entity.DrinkOrder
 import com.janakerman.service.DrinkOrderService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
@@ -21,14 +22,8 @@ class DrinkOrderController {
     private DrinkOrderService orderService
 
     @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
-    DrinkOrderDTO get(@PathVariable Integer id) {
-        DrinkOrderDTO.fromOrder orderService.get(id)
-    }
-
-    @RequestMapping(value = "/order", method = RequestMethod.POST)
-    DrinkOrderDTO post(@RequestBody NewOrderDTO newOrder) {
-        def order = orderService.createOrder(newOrder.shop, newOrder.person, newOrder.item)
-        DrinkOrderDTO.fromOrder order
+    DrinkOrder get(@PathVariable Integer id) {
+        orderService.get(id)
     }
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.Id
  * Created by jakerman on 15/03/2017.
  */
 @Entity
-class Person implements IEntity {
+class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id

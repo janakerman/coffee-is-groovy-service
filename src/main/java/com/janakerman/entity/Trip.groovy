@@ -4,18 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIdentityReference
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
 
+import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
+import java.time.LocalDateTime
 
 /**
- * Represents an order.
- * Created by jakerman on 15/03/2017.
+ * Represents a trip.
+ * Created by jakerman on 16/03/2017.
  */
 @Entity
-class DrinkOrder {
+class Trip {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id
@@ -23,15 +27,38 @@ class DrinkOrder {
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id") // Only serialize the ID of the buyer
     @JsonIdentityReference(alwaysAsId=true)
-    Person person
+    Person buyer
 
+    @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id") // Only serialize the ID of the buyer
     @JsonIdentityReference(alwaysAsId=true)
-    @ManyToOne
-    Trip trip
+    Shop shop
 
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id") // Only serialize the ID of the buyer
-    @JsonIdentityReference(alwaysAsId=true)
-    @ManyToOne
-    Item item
+    LocalDateTime time
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "trip"
+    )
+    private List<DrinkOrder> orders
+
+    boolean isOpen() { true }
+
+    DrinkOrder addOrder(DrinkOrder order) {
+        if (!shop.menu.contains(order.getItem())) {
+            // TODO: Throw exception
+        }
+        if (order.getTrip() != this) {
+            // TODO: Can't add an order that isn't for this trip.
+        }
+        if (!isOpen()) {
+            // TODO: Throw exception
+        }
+
+        orders.add order
+        return order
+    }
+
+    List<DrinkOrder> getOrders() { orders }
+
 }

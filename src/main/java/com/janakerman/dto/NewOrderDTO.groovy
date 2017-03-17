@@ -4,7 +4,6 @@ package com.janakerman.dto
  * Created by jakerman on 16/03/2017.
  */
 class NewOrderDTO {
-    Integer shop
-    Integer item
-    Integer person
+    Integer itemId
+    Integer personId
 }

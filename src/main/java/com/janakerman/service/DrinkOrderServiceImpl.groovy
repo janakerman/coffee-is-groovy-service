@@ -19,35 +19,9 @@ import org.springframework.transaction.annotation.Transactional
 class DrinkOrderServiceImpl implements DrinkOrderService {
 
     @Autowired
-    ItemRepository itemRepository
-    @Autowired
-    ShopRepository shopRepository
-    @Autowired
-    PersonRepository personRepository
-    @Autowired
     OrderRepository orderRepository
 
     @Override
     @Transactional
-    DrinkOrder createOrder(Integer shopId, Integer personId, Integer itemId) {
-        println shopId
-        println personId
-        println itemId
-
-        def item = itemRepository.findOne itemId
-        def shop = shopRepository.findOne shopId
-        def person = personRepository.findOne personId
-
-        if (!shopHasItem(shop, item)) {
-            // Throw some kind of exception.
-        }
-
-        orderRepository.saveAndFlush(new DrinkOrder(person: person, shop: shop, item: item))
-    }
-
-    @Override
-    @Transactional
     DrinkOrder get(Integer orderId) { orderRepository.saveAndFlush orderId }
-
-    private static shopHasItem(Shop shop, Item item) { true }
 }
