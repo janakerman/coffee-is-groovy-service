@@ -14,7 +14,7 @@ class PersonServiceImpl implements PersonService {
 
     @Override
     @Transactional
-    Person get(Integer id) { personRepository.findOne id }
+    Person getPerson(Integer id) { personRepository.findOne id }
 
     @Override
     @Transactional

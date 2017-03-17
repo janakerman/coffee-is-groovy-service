@@ -22,7 +22,7 @@ class DrinkOrderController {
     private DrinkOrderService orderService
 
     @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
-    DrinkOrder get(@PathVariable Integer id) {
+      get(@PathVariable Integer id) {
         orderService.get(id)
     }
 
