@@ -2,83 +2,50 @@ package com.janakerman.controller
 
 import com.janakerman.entity.Person
 import com.janakerman.service.PersonService
-import groovy.mock.interceptor.MockFor
-import groovy.mock.interceptor.StubFor
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import groovy.json.JsonSlurper
 import org.springframework.http.MediaType
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
-import org.springframework.test.context.web.WebAppConfiguration
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
-import static org.hamcrest.Matchers.*
-import static org.mockito.Mockito.*
-import static com.janakerman.controller.TestUtil.*
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import spock.lang.Specification
+
+class PersonControllerTest extends Specification {
+
+    def personService = Mock(PersonService)
+    def personController = new PersonController(personService)
+    def mockMvc = standaloneSetup(personController).build()
+
+    def "getting a valid person"() {
+        given: 'an existing person'
+        def person = Util.validPerson()
+        1 * personService.getPerson(1) >> person
+
+        when: 'request is made'
+        def request = mockMvc.perform(get('/person/1'))
+        def content = new JsonSlurper().parseText(request.andReturn().response.contentAsString)
 
 
-@RunWith(SpringJUnit4ClassRunner)
-@WebAppConfiguration
-class PersonControllerTest {
-
-//    @Mock
-    def mock = Mock
-    private PersonService personService
-    @InjectMocks
-    private PersonController controller
-
-    private MockMvc mockMvc
-
-    @Before
-    void setup() {
-//        personService = (PersonService)new MockFor(PersonService)
-        mockMvc = MockMvcBuilders.standaloneSetup(controller/*, personService */).build()
+        then: 'response is correct json'
+        assert content?.id == 1
+        assert content?.firstName == person.firstName
+        assert content?.lastName == person.lastName
     }
 
-    @Test
-    void test_get_valid_person() {
+    def "creating a valid person"() {
+        given: 'a valid person'
         def person = Util.validPerson()
+        1 * personService.create(_) >> person
 
-        MockFor<Person> mock = new MockFor(PersonService)
-        mock.demand.getPerson { person }
-
-//        when(personService.get(1)).thenReturn(person)
-        mock.use {
-            mockMvc.perform(get('/person/1'))
-                    .andExpect(status().isOk())
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                    .andExpect(jsonPath('$.id', is(1)))
-                    .andExpect(jsonPath('$.firstName', is(person.firstName)))
-                    .andExpect(jsonPath('$.lastName', is(person.lastName)))
-        }
-
-
-        verify(personService, times(1)).get(1)
-        verifyNoMoreInteractions(personService)
-    }
-
-    @Test
-    void test_post_valid_person() {
-        def person = Util.validPerson()
-
-        when(personService.create(any(Person))).thenReturn(person)
-
-        mockMvc.perform(post('/person')
+        when: 'person is posted'
+        def request = mockMvc.perform(post('/person')
                 .content(Util.VALID_PERSON_JSON)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath('$.id', is(1)))
-            .andExpect(jsonPath('$.firstName', is(person.firstName)))
-            .andExpect(jsonPath('$.lastName', is(person.lastName)))
+        def content = new JsonSlurper().parseText(request.andReturn().response.contentAsString)
 
-        verify(personService, times(1)).create(eq(person))
+        then: 'response is correct json'
+        assert content?.id == 1
+        assert content?.firstName == person.firstName
+        assert content?.lastName == person.lastName
     }
 
     private static class Util {

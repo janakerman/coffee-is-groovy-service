@@ -21,6 +21,10 @@ class PersonController {
     @Autowired
     private PersonService service
 
+    PersonController(PersonService service) {
+        this.service = service
+    }
+
     @RequestMapping(value="/person/{id}", method = RequestMethod.GET)
     Person get(@PathVariable Integer id) {
         service.getPerson(id)
