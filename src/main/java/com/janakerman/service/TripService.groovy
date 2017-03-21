@@ -10,7 +10,7 @@ import com.janakerman.entity.Trip
 interface TripService {
     Trip create(Integer buyerId, Integer shopID)
     Trip get(Integer tripId)
-    List<Trip> get(Boolean open)
+    List<Trip> getOpen()
     List<Trip> get(Integer personId, Boolean open)
     DrinkOrder addOrder(Integer tripId, Integer itemId, Integer personId)
 }

@@ -10,4 +10,5 @@ import com.janakerman.entity.Shop
 interface ShopService {
     Shop createShop(Shop shop)
     Shop getShop(Integer id)
+    List<Shop> getAll()
 }

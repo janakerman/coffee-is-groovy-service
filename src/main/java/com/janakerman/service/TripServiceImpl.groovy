@@ -54,7 +54,7 @@ class TripServiceImpl implements TripService {
 
     @Override
     @Transactional
-    List<Trip> get(Boolean open) { tripRepository.get open }
+    List<Trip> getOpen() { tripRepository.getOpenTrips() }
 
     @Override
     @Transactional

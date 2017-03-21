@@ -31,4 +31,8 @@ class ShopServiceImpl implements ShopService{
     @Override
     @Transactional
     Shop getShop(Integer id) { repository.findOne(id) }
+
+    @Override
+    @Transactional
+    List<Shop> getAll() { repository.findAll() }
 }

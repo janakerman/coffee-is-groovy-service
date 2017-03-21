@@ -34,6 +34,7 @@ class Trip {
     @JsonIdentityReference(alwaysAsId=true)
     Shop shop
 
+
     LocalDateTime time
 
     @OneToMany(
@@ -41,8 +42,6 @@ class Trip {
             mappedBy = "trip"
     )
     private List<DrinkOrder> orders
-
-    boolean isOpen() { true }
 
     DrinkOrder addOrder(DrinkOrder order) {
         if (!shop.menu.contains(order.getItem())) {
