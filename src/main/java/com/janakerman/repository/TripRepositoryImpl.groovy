@@ -7,9 +7,6 @@ import javax.persistence.PersistenceContext
 import java.time.LocalDateTime
 import java.util.List
 
-/**
- * Created by jakerman on 16/03/2017.
- */
 class TripRepositoryImpl implements TripRepositoryCustom {
 
     @PersistenceContext
@@ -17,8 +14,7 @@ class TripRepositoryImpl implements TripRepositoryCustom {
 
     @Override
     List<Trip> getOpenTrips() {
-        // TODO: Replace column type in database with normal date instead of Joda and compare date in query instead.
-        def results = entityManager.createQuery("FROM Trip as t WHERE t.time > :time", Trip)
+        entityManager.createQuery("FROM Trip as t WHERE t.time > :time", Trip)
                 .setParameter("time", LocalDateTime.now())
                 .getResultList()
     }

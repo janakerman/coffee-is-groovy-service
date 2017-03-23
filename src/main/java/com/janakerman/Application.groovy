@@ -2,10 +2,12 @@ package com.janakerman
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean
+import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.context.annotation.Bean
+import org.springframework.web.filter.DelegatingFilterProxy
 
-/**
- * Created by jakerman on 15/03/2017.
- */
+
 @SpringBootApplication
 class Application {
 
