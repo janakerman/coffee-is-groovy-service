@@ -42,7 +42,7 @@ class TripServiceImpl implements TripService {
         }
 
         // Create a time in the future for now.
-        LocalDateTime time = LocalDateTime.now().plusHours(2)
+        LocalDateTime time = LocalDateTime.now().plusSeconds(15)
 
         def trip = new Trip(buyer: buyer, shop: shop, time: time)
         tripRepository.saveAndFlush(trip)
