@@ -7,8 +7,16 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint{
+/**
+ * Seems to be a handler for unauthorized requests. No idea why the base class is named in such a misleading way?
+ */
+class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 
+    /**
+     * Overrides the default implementation of redirecting the client to a login page when not authentication.
+     *
+     * We're using HttpBasic - there is no login page.
+     */
     @Override
     void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         // Authentication has failed, send error.
