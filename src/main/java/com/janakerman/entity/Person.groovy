@@ -23,9 +23,6 @@ class Person {
 
     String password
 
-    @Transient
-    String passwordConfirm
-
     @ManyToMany
     @JoinTable(
             name = "user_role",

@@ -43,10 +43,6 @@ class PersonValidator implements Validator {
         if (person.getPassword().length() < 8 || person.getPassword().length() > 32) {
             errors.rejectValue('password', 'user.username.password')
         }
-
-        if (person.getPasswordConfirm() != person.getPassword()) {
-            errors.rejectValue('passwordConfirm', 'user.username.passwordConfirm')
-        }
     }
 
 }

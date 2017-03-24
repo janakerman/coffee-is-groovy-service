@@ -4,11 +4,7 @@ import com.janakerman.entity.Person
 import com.janakerman.repository.PersonRepository
 import com.janakerman.repository.RoleRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -17,10 +13,10 @@ class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository
     private final RoleRepository roleRepository
-    private final BCryptPasswordEncoder encoder
+    private final PasswordEncoder encoder
 
     @Autowired
-    PersonServiceImpl(PersonRepository personRepository, RoleRepository roleRepository, BCryptPasswordEncoder encoder) {
+    PersonServiceImpl(PersonRepository personRepository, RoleRepository roleRepository, PasswordEncoder encoder) {
         this.personRepository = personRepository
         this.roleRepository = roleRepository
         this.encoder = encoder
