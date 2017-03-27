@@ -39,7 +39,7 @@ class UserCredentialsService implements UserDetailsService, SecurityService {
 
     @Override
     String findLoggedInUsername() {
-        def userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails()
+        def userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal()
 
         if (!userDetails instanceof UserDetails) {
             return null

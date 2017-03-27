@@ -1,5 +1,6 @@
 package com.janakerman.service
 
+import com.janakerman.auth.SecurityService
 import com.janakerman.entity.Person
 import com.janakerman.repository.PersonRepository
 import com.janakerman.repository.RoleRepository
@@ -14,12 +15,21 @@ class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository
     private final RoleRepository roleRepository
     private final PasswordEncoder encoder
+    private final SecurityService securityService
 
     @Autowired
-    PersonServiceImpl(PersonRepository personRepository, RoleRepository roleRepository, PasswordEncoder encoder) {
+    PersonServiceImpl(PersonRepository personRepository, RoleRepository roleRepository,
+                      PasswordEncoder encoder, SecurityService securityService) {
         this.personRepository = personRepository
         this.roleRepository = roleRepository
         this.encoder = encoder
+        this.securityService = securityService
+    }
+
+    @Override
+    Person getCurrent() {
+        def username = securityService.findLoggedInUsername()
+        getPerson username
     }
 
     @Override
@@ -27,6 +37,7 @@ class PersonServiceImpl implements PersonService {
     Person getPerson(Integer id) { personRepository.findOne id }
 
     @Override
+    @Transactional(readOnly = true)
     Person getPerson(String username) { personRepository.findByUsername username}
 
     @Override

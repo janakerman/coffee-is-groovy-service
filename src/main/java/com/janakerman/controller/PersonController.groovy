@@ -6,6 +6,7 @@ import com.janakerman.entity.PersonValidator
 import com.janakerman.service.PersonService
 import com.janakerman.auth.SecurityService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -30,8 +31,10 @@ class PersonController {
         this.validator = validator
     }
 
-    @GetMapping(value="/person/{id}")
-    PersonDTO get(@PathVariable Integer id) { new PersonDTO(service.getPerson(id)) }
+    @GetMapping(value="/person")
+    PersonDTO getCurrent() {
+        new PersonDTO(service.getCurrent())
+    }
 
     @PostMapping(value = "/register")
     @ResponseBody
