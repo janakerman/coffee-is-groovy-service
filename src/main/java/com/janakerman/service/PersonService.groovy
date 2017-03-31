@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 
 interface PersonService {
-    Person getCurrent()
     Person getPerson(Integer id)
     Person getPerson(String username)
     Person create(Person person)

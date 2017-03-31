@@ -19,14 +19,11 @@ import org.springframework.web.bind.annotation.RestController
 
 import java.util.stream.Collectors
 
-@CrossOrigin
 @RestController
 class TripController {
 
     @Autowired
     TripService tripService
-
-
 
     @GetMapping(value = "/trips")
     @JsonView(TripDTO.View.Summary)

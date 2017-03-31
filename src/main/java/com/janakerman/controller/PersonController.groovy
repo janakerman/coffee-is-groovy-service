@@ -1,6 +1,8 @@
 package com.janakerman.controller
 
+import com.janakerman.auth.UserCredentialsService
 import com.janakerman.dto.PersonDTO
+import com.janakerman.dto.TripDTO
 import com.janakerman.entity.Person
 import com.janakerman.entity.PersonValidator
 import com.janakerman.service.PersonService
@@ -8,6 +10,7 @@ import com.janakerman.auth.SecurityService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.BindingResult
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -24,16 +27,18 @@ class PersonController {
 
     private final PersonService service
     private final PersonValidator validator
+    private final SecurityService securityService
 
     @Autowired
-    PersonController(PersonService service, PersonValidator validator) {
+    PersonController(PersonService service, PersonValidator validator, SecurityService securityService) {
         this.service = service
         this.validator = validator
+        this.securityService = securityService
     }
 
     @GetMapping(value="/person")
     PersonDTO getCurrent() {
-        new PersonDTO(service.getCurrent())
+        new PersonDTO(service.getPerson(getUsername()))
     }
 
     @PostMapping(value = "/register")
@@ -48,5 +53,7 @@ class PersonController {
 
         new PersonDTO(service.create(person))
     }
+
+    private getUsername() { this.securityService.findLoggedInUsername() }
 
 }

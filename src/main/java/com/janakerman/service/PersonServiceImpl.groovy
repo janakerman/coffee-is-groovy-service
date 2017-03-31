@@ -27,12 +27,6 @@ class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    Person getCurrent() {
-        def username = securityService.findLoggedInUsername()
-        getPerson username
-    }
-
-    @Override
     @Transactional(readOnly = true)
     Person getPerson(Integer id) { personRepository.findOne id }
 
